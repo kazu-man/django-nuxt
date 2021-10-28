@@ -27,6 +27,8 @@
 <style>
     .category-card {
         box-shadow: 0 0.2rem 0.3rem rgba(0,0,0,.6);
+        width: 100%;
+        white-space: initial;
     }
     .pointer{
         cursor:pointer

@@ -80,6 +80,7 @@
                 color="error"
                 style="position:absolute;top:0px;right:-10px"
                 @click="deleteItemRow(item.id)"
+                v-if="edit"
             >
                 <v-icon dark>
                 mdi-close-thick
