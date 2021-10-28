@@ -5,20 +5,32 @@
               <img src='/images/banner.jpg' class="img-fluid" style="width: 400px border-radius: 10px box-shadow: 0 1rem 1rem rgba(0,0,0,.7)">
           </div>
 
-          <form @submit.prevent="login" style="width:50%; padding:5%;">
+          <v-form @submit.prevent="login" style="width:50%; padding:5%;" ref="form" lazy-validation >
             <h3 style="text-align:center">Login</h3>
             <div class="form-group">
-              <label for>UserName</label>
-              <input v-model="loginForm.username" type="text" class="form-control">
+              <v-text-field
+                v-model="loginForm.username"
+                label="User Name"
+                :rules="[validationRules.required]"
+                ></v-text-field>                
             </div>
             <div class="form-group">
-              <label for>Password</label>
-              <input v-model="loginForm.password" type="password" class="form-control">
+              <v-text-field
+                v-model="loginForm.password"
+                label="Password"
+                :type="'password'"
+                :rules="[validationRules.required]"
+              ></v-text-field>                 
             </div>
             <v-btn type="submit" color="primary" rounded style="display:block;margin:auto;">
-              登録
+              ログイン
             </v-btn>
-          </form>
+            <div style="text-align:center;margin-top:15px;color:blue">
+              <p @click="toSignin()" style="cursor:pointer" small>
+                登録する
+              </p>
+            </div>
+          </v-form>
 
           <!-- <form @submit.prevent="logout">
             <button type="submit" class="btn btn-primary">
@@ -37,6 +49,11 @@ const cardContainer = () => import('~/components/slot/CardContainer.vue')
       components:{
         cardContainer
       },
+      head () {
+        return {
+          title: 'Login'
+        }
+      },      
         data () {
             return {
             loginForm: {username:"",password:""},
@@ -45,13 +62,22 @@ const cardContainer = () => import('~/components/slot/CardContainer.vue')
         },
         methods: {
             async login () { // eslint-disable-line
+              //formの入力値が正常な場合
+              if(!this.$refs.form.validate()){
+                  return false;
+              }
+            
             try {
-                this.$store.dispatch('store/userLogin',{
+                await this.$store.dispatch('store/userLogin',{
                   username:this.loginForm.username,
                   password:this.loginForm.password
                 })
-                this.$router.push('/items')
-                console.log("LOGIN DONE!!!")
+
+                if(this.$store.state.auth.loggedIn){
+                  
+                  this.goToAccountPage()
+
+                }
 
             } catch (e) {
                 console.log(e)
@@ -66,6 +92,9 @@ const cardContainer = () => import('~/components/slot/CardContainer.vue')
               } catch (e) {
                   console.log(e)
               }
+            },
+            toSignin() {
+              this.$router.push("/users/add/")
             }
         },
     }

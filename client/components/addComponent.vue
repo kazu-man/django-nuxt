@@ -22,11 +22,12 @@
         </v-btn>
       </template>
       <v-card>
+        <v-form @submit.prevent="addItems" ref="form" lazy-validation>
         <v-card-title>
           <span class="text-h5">Add Item</span>
         </v-card-title>
         <v-card-text>
-          <v-container>
+          <v-container v-if="dialog">
             <v-row v-for="(item, index) in itemAddForm" :key="index">
               <v-col
                 cols="12"
@@ -36,6 +37,7 @@
                 <v-text-field
                   label="Item Name"
                   required
+                  :rules="[validationRules.required]"
                   v-model="item.name"
                 ></v-text-field>
               </v-col>
@@ -46,9 +48,10 @@
               >
                 <v-text-field
                   label="Price"
-                  hint="example of helper text only on focus"
                   type="number"
                   v-model="item.price"
+                  :rules="[validationRules.counter_0]"
+                  required
                 ></v-text-field>
               </v-col>
               <v-col
@@ -62,6 +65,8 @@
                     item-text="name"
                     item-value="id"
                     v-model="item.category_id"
+                    :rules="[validationRules.required]"
+                    required
                 ></v-select>
             <v-btn
                 class="mx-2"
@@ -69,7 +74,7 @@
                 dark
                 small
                 color="error"
-                style="position:absolute;top:30px;right:-30px"
+                style="position:absolute;top:30px;right:-25px"
                 @click="deleteItemRow(index)"
             >
                 <v-icon dark>
@@ -97,7 +102,6 @@
               </v-col>              
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
             <v-btn
                 class="mx-2"
                 fab
@@ -112,7 +116,7 @@
             </v-icon>
         </v-btn>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions style="display:block;text-align:center">
           <v-spacer></v-spacer>
           <v-btn
             color="blue darken-1"
@@ -124,11 +128,12 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="addItems()"
+            type="submit"
           >
             Save
           </v-btn>
         </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
   </v-row>
@@ -144,10 +149,11 @@ const datePicker = () => import('~/components/datePicker.vue')
     data: () => ({
       dialog: false,
       itemAddForm:[{name:"",price:0,purchase_date:"",category_id:null,memo:""}],
-      allCategories:[]
+      allCategories:[],
+
+
     }),
     mounted:async function(){
-
         if(this.$route.params.date != null){
             this.itemAddForm[0].purchase_date = this.$route.params.date
         }
@@ -168,14 +174,19 @@ const datePicker = () => import('~/components/datePicker.vue')
             this.itemAddForm.splice(index,1)
         },
         dialogClose(){
-            this.itemAddForm = [{name:"",price:0,purchase_date:this.$route.params.date == undefined ? "" : this.$route.params.date ,category_id:null,memo:""}]
             this.dialog = false
+            this.itemAddForm = [{name:"",price:0,purchase_date:this.$route.params.date == undefined ? "" : this.$route.params.date ,category_id:null,memo:""}]
 
         },
         selectedDate(val){
             this.itemAddForm[0].purchase_date = val
         },
         async addItems(){
+
+            //formの入力値が正常な場合
+            if(!this.$refs.form.validate()){
+                return false;
+            }
             const config = {
                 headers: { 'content-type': 'application/json', }
             }
@@ -185,7 +196,15 @@ const datePicker = () => import('~/components/datePicker.vue')
                 this.dialogClose()
 
             } catch (e) {
-                console.log(e)
+
+                //エラーがあればアラートを表示
+                let message = "";
+                Object.keys(e.response.data).map(value => {
+                    message += e.response.data[value] + "\n"
+                });
+                alert(message)
+                
+                console.log(e.response.data)
             }
         }
     },

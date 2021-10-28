@@ -1,7 +1,8 @@
 <template>
     <v-app>
       <Header></Header>
-      <nuxt style="height:100%;"/>
+      <div style="margin-top:60px"></div>
+      <nuxt/>
     </v-app>
 </template>
 

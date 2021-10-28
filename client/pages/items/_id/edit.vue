@@ -41,7 +41,7 @@ export default {
   middleware: 'nuxtAuth',
   head () {
     return {
-      title: '水草編集ページ'
+      title: 'Account'
     }
   },
   data () {

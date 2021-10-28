@@ -3,6 +3,6 @@ export default function (context) {
     const isLoggedIn = context.store.state.auth.loggedIn;
     if (!isLoggedIn) {
       console.log("loginしてないのでダメ！")
-      context.redirect('login')
+      context.redirect('/login')
     }
   }

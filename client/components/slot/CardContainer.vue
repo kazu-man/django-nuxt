@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="mx-auto"
-    style="margin-top:10px;width:100%"
+    style="margin-top:10px;width:80%"
   >
     <v-spacer></v-spacer>
 

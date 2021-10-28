@@ -5,6 +5,7 @@ from .serializers import ItemSerializer
 from .serializers import ItemListSerializer
 from .serializers import CategorySerializer
 from .serializers import UserSerializer
+from .serializers import UserRegistrationSerializer
 from .models import Item
 from .models import Category
 from .models import User
@@ -15,12 +16,26 @@ from django.db.models import Count, Sum
 from datetime import datetime as dt
 from account.view_modules.module import module
 import inspect
+from rest_framework.decorators import (api_view, permission_classes, list_route)
+from rest_framework.permissions import AllowAny
 
 
 class UserListView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def create(self, request):
+
+        # Validating our serializer from the UserRegistrationSerializer
+        serializer = UserRegistrationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Everything's valid, so send it to the UserSerializer
+        model_serializer = UserSerializer(data=serializer.data)
+        model_serializer.is_valid(raise_exception=True)
+        model_serializer.save()
+
+        return Response(model_serializer.data)
 
 # item検索用のフィルター
 class CustomFilter(filters.FilterSet):

@@ -5,13 +5,14 @@
             color="pink"
             clipped
             style="z-index:99;height:64px"
+            fixed
             >
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
             <v-toolbar-title>My Sample Project</v-toolbar-title>
 
         </v-app-bar>
-        <v-navigation-drawer app v-model="drawer" clipped style="margin-top:64px;position:absolute">
+        <v-navigation-drawer app v-model="drawer" clipped style="margin-top:64px;position:fixed">
 
         <v-list>
             <v-list-item v-if="!isLoggedIn" @click="login()">
@@ -34,7 +35,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="goToAccount()">
+            <v-list-item v-if="isLoggedIn" @click="goToAccount()">
               <v-list-item-action>
                 <v-icon>mdi-label</v-icon>
               </v-list-item-action>
@@ -44,7 +45,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="goToCategories()">
+            <v-list-item v-if="isLoggedIn" @click="goToCategories()">
               <v-list-item-action>
                 <v-icon>mdi-label</v-icon>
               </v-list-item-action>

@@ -2,6 +2,15 @@ import Vue from 'vue'
 
 Vue.mixin({
   methods: {
+    goToAccountPage(){
+        var dt = new Date(); 
+        const month = this.getMonthString(dt)
+    
+        this.$router.push("/items/calendar/month/" + month)
+    },
+    goToCategory(){
+        this.$router.push('/categories/add')
+    },    
     truncate(str, length) {
       return str.length <= length ? str: (str.substr(0, length) + "...");
     },

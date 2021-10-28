@@ -62,6 +62,11 @@ const addComponent = () => import('~/components/addComponent.vue')
           cardContainer,
           addComponent
       },
+      head () {
+        return {
+          title: 'Account'
+        }
+      },      
         data () {
             return {
             items:[],

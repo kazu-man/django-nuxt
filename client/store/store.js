@@ -13,7 +13,7 @@ export const mutations = {
 export const actions = {
     async userLogin(context, usercredentials){
 
-        this.$auth.loginWith('local', {
+        await this.$auth.loginWith('local', {
             data: {
                 username: usercredentials.username,
                 password: usercredentials.password
@@ -24,8 +24,12 @@ export const actions = {
             // $nuxt.$router.push('/items')
 
         })
-        .catch(response => {
-            console.log(response)
+        .catch(e => {
+            let message = "";
+            Object.keys(e.response.data).map(value => {
+               message += e.response.data[value] + "\n"
+           });
+           alert(message)
             console.log("LOGIN ERROR!!")
 
         })

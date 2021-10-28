@@ -62,6 +62,7 @@ export default {
     { src: '~/plugins/router.js' },
     { src: '~/plugins/filter.js' },
     { src: '@/plugins/mixin-common-methods' },
+    { src: '@/plugins/validationRules' },
 
     // { src: '~/plugins/localStorage.js', ssr: false }
 

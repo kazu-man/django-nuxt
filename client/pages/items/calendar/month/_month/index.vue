@@ -85,6 +85,11 @@ const cardContainer  = () =>  import('~/components/slot/CardContainer.vue')
           cardContainer
 
       },
+      head () {
+        return {
+          title: 'Account'
+        }
+      },      
         data () {
             return {
                 total:0,

@@ -5,16 +5,9 @@
     <cardContainer class="col-8">
             <template v-slot:top_area >
 
-              <v-btn rounded small color="success" @click="goToAccountPage" style="width:30px;margin:10px 10px 2px 10px">
+              <v-btn rounded small color="success" @click="goToCategory" style="width:30px;margin:10px 10px 2px 10px">
                 Back
               </v-btn>
-
-            </template>
-            <template v-slot:card_header :allCategories="allCategories">
-
-                  <div style="width:100%;padding:30px">
-                      <category-card :category="category" :allowToDetail="true" v-for="category in allCategories" :key="category.id" style="margin:3px"></category-card>
-                  </div>
 
             </template>
 
@@ -24,7 +17,7 @@
                   <v-form @submit.prevent="submitCategory" ref="form" lazy-validation>
                     <div class="form-group">
                       <v-text-field
-                        v-model="category.name"
+                        v-model="targetCategory.name"
                         label="カテゴリー名"
                         :rules="[validationRules.required]"
                         required
@@ -32,7 +25,7 @@
                     </div>
                     <div class="form-group">
                       <v-text-field
-                        v-model="category.color"
+                        v-model="targetCategory.color"
                         label="カラー"
                         :rules="[validationRules.required]"
                         required
@@ -70,9 +63,7 @@ export default {
   },
   data () {
     return {
-      category: {},
-      allCategories:{},
-      preview: '',
+      targetCategory:{},
     }
   },
   methods: {
@@ -86,13 +77,13 @@ export default {
         headers: { 'content-type': 'multipart/form-data', }
       }
       const formData = new FormData()
-      for (const data in this.category) {
-          formData.append(data, this.category[data])
+      for (const data in this.targetCategory) {
+          formData.append(data, this.targetCategory[data])
       }
       try {
-        const response = await this.$axios.$post('/category/', formData, config)
+        const response = await this.$axios.$patch(`/category/${this.targetCategory.id}/`, formData, config)
         
-        this.$router.push('/items/')
+        this.$router.push('/categories/add')
       } catch (e) {
         //エラーがあればアラートを表示
         let message = "";
@@ -106,10 +97,10 @@ export default {
   },
   async asyncData ({ $axios, params }) {    
     try {
-      const allCategories = await $axios.$get(`/test/`)
-      return { allCategories }
+      const targetCategory = await $axios.$get(`/category/${params.id}`)
+      return { targetCategory }
     } catch (e) {
-      return { allCategories: [] }
+      return { targetCategory: [] }
     }
   }
 }
