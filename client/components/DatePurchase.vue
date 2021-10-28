@@ -2,14 +2,16 @@
     <cardSlot v-bind:item="item" style="height: 140px;">
         <template v-slot:date style="padding:0">
                 <!-- {{item.name}} -->
-                <h6 v-if="!edit" style="margin:0;font-weight:bold">{{item.name}}</h6>
+                <div v-if="!edit"  style="overflow:scroll;max-height:45px">
+                <h6 style="margin:0;font-weight:bold">{{item.name}}</h6>
+                </div>
                 <v-text-field
                   v-else
                   label="Item Name"
                   required
-                outlined
-                filled
-                dense
+                  outlined
+                  filled
+                  dense
                   v-model="item.name"
                 ></v-text-field>
                 <v-btn
@@ -28,7 +30,7 @@
         <template v-slot:total style="padding:0;font-size:15px">
                 
                 <template v-if="!edit">
-                    <div style="padding:30px 0">
+                    <div style="padding:30px 0;overflow:scroll">
                         {{$options.filters.addComma(item.price)}} 円
                     </div>
                 </template>

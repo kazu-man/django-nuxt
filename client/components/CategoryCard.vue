@@ -1,6 +1,6 @@
 <template>
 
-    <div class="category-card badge" v-bind:class="{pointer : isDetailAllowed}" v-bind:style="{ background: category.color }" style="color:white;display:inline-block" @click="toCategoryDetail()">
+    <div class="category-card badge" v-bind:class="{pointer : isDetailAllowed, 'detail-batch-size' : !isDetailAllowed}" v-bind:style="{ background: category.color }" style="color:white;display:inline-block" @click="toCategoryDetail()">
         {{ category.name }}
     </div>
 
@@ -27,10 +27,12 @@
 <style>
     .category-card {
         box-shadow: 0 0.2rem 0.3rem rgba(0,0,0,.6);
-        width: 100%;
-        white-space: initial;
     }
     .pointer{
         cursor:pointer
+    }
+    .detail-batch-size{
+        width: 100%;
+        white-space: initial;
     }
 </style>
