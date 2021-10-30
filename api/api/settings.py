@@ -171,3 +171,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/' # 追加
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 追加
 AUTH_USER_MODEL = 'account.User'
+
+DJOSER = {
+    'SERIALIZERS': {
+        'current_user': 'account.serializers.UserSerializer'
+    },
+}
