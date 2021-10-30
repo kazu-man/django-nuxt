@@ -69,6 +69,7 @@
                     required
                 ></v-select>
             <v-btn
+                v-if="lastRowFlg"
                 class="mx-2"
                 icon
                 dark
@@ -166,6 +167,11 @@ const datePicker = () => import('~/components/datePicker.vue')
         }
     },
     props:["datePickFlg"],
+    computed:{
+        lastRowFlg:function(){
+            return this.itemAddForm.length >= 2 ? true : false;
+        }
+    },
     methods:{
         addItemRow(){
             this.itemAddForm.push({name:"",price:0,purchase_date:this.$route.params.date == undefined ? "" : this.$route.params.date ,category_id:null,memo:""})
