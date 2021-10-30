@@ -96,7 +96,7 @@ export default {
         const response = await this.$axios.$post('/category/', formData, config)
         this.showInput = false
         this.category = {}
-        this.allCategories = await this.$axios.$get(`/test/`)
+        this.allCategories = await this.$axios.$get(`/category/`)
       } catch (e) {
         //エラーがあればアラートを表示
         let message = "";
@@ -112,7 +112,7 @@ export default {
   },
   async asyncData ({ $axios, params }) {    
     try {
-      const allCategories = await $axios.$get(`/test/`)
+      const allCategories = await $axios.$get(`/category/`)
       return { allCategories }
     } catch (e) {
       return { allCategories: [] }

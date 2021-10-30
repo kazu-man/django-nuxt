@@ -12,7 +12,6 @@ class Category(models.Model):
 
     name = models.CharField(max_length=120, verbose_name="カテゴリー名")
     color = models.CharField(max_length=120, verbose_name="カラー")
-    # items = models.ManyToManyField(Item, verbose_name="商品", related_name='categories', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str_(self):
@@ -34,24 +33,3 @@ class Item(models.Model):
     def __str_(self):
         return self.name
 
-class UserInfo(models.Model):
-
-    class Meta:
-        db_table = 'userInfo'
-    
-    username = models.CharField(max_length=50, unique=True, db_index=True)
-    password = models.CharField(max_length=100, db_index=True)
-    info = models.CharField(max_length=200)
-
-# class Category(models.Model):
-
-#     class Meta:
-#         db_table = 'category'
-
-#     name = models.CharField(max_length=120, verbose_name="カテゴリー名")
-#     color = models.CharField(max_length=120, verbose_name="カラー")
-#     items = models.ManyToManyField(Item, verbose_name="商品", related_name='categories', blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     def __str_(self):
-#         return self.name

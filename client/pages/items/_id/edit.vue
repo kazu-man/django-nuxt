@@ -94,16 +94,13 @@ export default {
       for (const data in editItem) {
 
           if(data === "categories"){
-        //     console.log(JSON.stringify(editItem[data]))
+
             formData.append(data, JSON.stringify(editItem[data]))
-            // formData.append("data", JSON.stringify(editItem[data]))
 
           }else{
             formData.append(data, editItem[data])
           }
       }
-        // formData.append("category_set", editItem["categories"])
-        // formData.append("test", editItem["name"])
 
       try {
         console.log(this.item)

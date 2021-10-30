@@ -21,10 +21,6 @@ router.register(r"userList", UserListView)
  
 urlpatterns = [
     path("", include(router.urls)),
-    # path('user/', views.UserListView.as_view()),
-    path('test/', views.TestView.as_view()),
-    # path('login/', views.Login.as_view()),
-    # path('logout/', views.Logout.as_view()),
     path('total_month/<str:fromDate>/<str:toDate>/', views.TotalMonthView.as_view()),
     path('item_data/<str:fromDate>/<str:toDate>/', views.ItemsDateView.as_view()),
     path('total/<str:date>/', views.TotalView.as_view()),

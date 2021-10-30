@@ -22,7 +22,6 @@ from account import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("account.urls")),  # 追加
-    path("api/v2/", include("core.urls")),  # 追加
     path('api/auth/',include('djoser.urls')), #add
     path('api/auth/',include('djoser.urls.jwt')), 
 ]
