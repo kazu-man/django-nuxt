@@ -9,6 +9,21 @@
                 Back
               </v-btn>
 
+            <v-btn
+                class="mx-2"
+                icon
+                dark
+                small
+                color="error"
+                style="position:absolute;top:30px;right:0px"
+                @click="deleteItemCategory()"
+            >
+                <v-icon dark>
+                mdi-close-thick
+                </v-icon>
+            </v-btn>
+
+
             </template>
 
             <template v-slot:card_body>
@@ -73,15 +88,12 @@ export default {
           return false;
       }
 
-      const config = {
-        headers: { 'content-type': 'multipart/form-data', }
-      }
       const formData = new FormData()
       for (const data in this.targetCategory) {
           formData.append(data, this.targetCategory[data])
       }
       try {
-        const response = await this.$axios.$patch(`/category/${this.targetCategory.id}/`, formData, config)
+        const response = await this.$axios.$patch(`/category/${this.targetCategory.id}/`, formData)
         
         this.$router.push('/categories/add')
       } catch (e) {
@@ -94,6 +106,25 @@ export default {
         console.log(e.response.data)
       }
     },
+    async deleteItemCategory(){
+
+      try {
+        const response = await this.$axios.$delete(`/category/${this.targetCategory.id}/`)
+        
+        this.$router.push('/categories/add')
+      } catch (e) {
+        //エラーがあればアラートを表示
+        let message = "";
+         Object.keys(e.response.data).map(value => {
+            message += e.response.data[value] + "\n"
+        });
+        alert(message)
+        console.log(e.response.data)
+      }
+
+
+
+    }
   },
   async asyncData ({ $axios, params }) {    
     try {

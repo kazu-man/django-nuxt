@@ -6,6 +6,14 @@
               <v-btn rounded small color="success" style="width:30px;margin:10px 10px 2px 10px" @click="backToMonth()">
                 Back
               </v-btn>
+              <div style="display:inline-block;float:right">
+                <v-btn rounded small color="success" style="width:100px;margin:10px 10px 2px 10px" @click="dayBefore()">
+                Last Day
+                </v-btn>
+                <v-btn rounded small color="success" style="width:100px;margin:10px 10px 2px 10px" @click="dayAfter()">
+                Next Day
+                </v-btn>
+              </div>
 
             </template>
             <template v-slot:card_header>
@@ -160,6 +168,20 @@ const addComponent = () => import('~/components/addComponent.vue')
               }finally{
                   this.chartRerender = true
               }
+          },
+          dayAfter(){
+            var dt = new Date(this.$route.params.date); 
+            dt.setDate(dt.getDate() + 1)
+            const date = this.getDateString(dt)
+            
+            this.$router.push("/items/calendar/date/" + date)
+          },
+          dayBefore(){
+            var dt = new Date(this.$route.params.date); 
+            dt.setDate(dt.getDate() - 1)
+            const date = this.getDateString(dt)
+            
+            this.$router.push("/items/calendar/date/" + date)
 
           },
         },

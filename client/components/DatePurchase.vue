@@ -134,15 +134,17 @@
 
                 //表示から選択に切り替える際初期値を設定
                 }else{
-                    this.item.category_id = this.item.categories[0].id;
+                    if(this.item.categories.length > 0){
+                        this.item.category_id = this.item.categories[0].id;
+                    }else{
+                        this.item.category_id = 1
+                    }
                 }
                 this.edit = !this.edit
             }
         },
         watch:{
             itemUpdate:function(newVal,old){
-                console.log("item update row")
-                console.log(newVal)
                 if(newVal){
                     this.edit = false
                 }

@@ -96,17 +96,14 @@ export default {
           return false;
       }
         
-      const config = {
-        headers: { 'content-type': 'multipart/form-data', }
-      }
       const formData = new FormData()
       for (const data in this.userInfo) {
           formData.append(data, this.userInfo[data])
       }
       try {
-        const response = await this.$axios.$post('/userList/', formData, config)
+        const response = await this.$axios.$post('/userList/', formData)
         
-        this.$router.push('/items/')
+        this.$router.push('/login/')
       } catch (e) {
         //エラーがあればアラートを表示
         let message = "";

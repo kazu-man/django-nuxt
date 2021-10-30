@@ -48,7 +48,17 @@ Vue.mixin({
         
         return month
     },
+    getDateString(dt){
+        let result = "yyyy-M-d"
+        let targetMonth = "00" + (dt.getMonth() + 1)
+        let targetDate = "00" + (dt.getDate())
 
+        result = result.replace(/yyyy/g, dt.getFullYear());
+        result = result.replace(/M/g, targetMonth.slice(-2));
+        result = result.replace(/d/g, targetDate.slice(-2));
+
+        return result
+    },
 
   },
   computed: {

@@ -11,6 +11,12 @@
 
             <v-toolbar-title>My Sample Project</v-toolbar-title>
 
+            <v-spacer></v-spacer>
+
+            <div style="display:inline-block;font-weight:bold" v-if="isLoggedIn">
+                {{$store.state.auth.user.username}}
+            </div>
+
         </v-app-bar>
         <v-navigation-drawer app v-model="drawer" clipped style="margin-top:64px;position:fixed">
 

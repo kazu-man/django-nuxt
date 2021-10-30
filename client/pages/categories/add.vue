@@ -22,16 +22,18 @@
 
                 <div class="col-md-12">
                   <v-form @submit.prevent="submitCategory" ref="form" lazy-validation>
-                    <div class="form-group">
+                    <div class="form-group" style="height:82px">
                       <v-text-field
+                       v-if="showInput"
                         v-model="category.name"
                         label="カテゴリー名"
                         :rules="[validationRules.required]"
                         required
                         ></v-text-field>                   
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  style="height:82px">
                       <v-text-field
+                       v-if="showInput"
                         v-model="category.color"
                         label="カラー"
                         :rules="[validationRules.required]"
@@ -73,6 +75,7 @@ export default {
       category: {},
       allCategories:{},
       preview: '',
+      showInput:true
     }
   },
   methods: {
@@ -91,16 +94,19 @@ export default {
       }
       try {
         const response = await this.$axios.$post('/category/', formData, config)
-        
-        this.$router.push('/items/')
+        this.showInput = false
+        this.category = {}
+        this.allCategories = await this.$axios.$get(`/test/`)
       } catch (e) {
         //エラーがあればアラートを表示
         let message = "";
          Object.keys(e.response.data).map(value => {
-            message += e.response.data[value] + "\n"
+           message += e.response.data[value] + "\n"
         });
         alert(message)
         console.log(e.response.data)
+      } finally{
+        this.showInput = true
       }
     },
   },
