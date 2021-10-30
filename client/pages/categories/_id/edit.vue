@@ -66,7 +66,7 @@ import CategoryCard from '~/components/CategoryCard.vue'
 const cardContainer = () => import('~/components/slot/CardContainer.vue')
 
 export default {
-    middleware: 'nuxtAuth',
+    middleware: 'nuxtAdminAuth',
     components: {
         CategoryCard,
         cardContainer,

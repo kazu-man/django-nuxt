@@ -51,7 +51,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item v-if="isLoggedIn" @click="goToCategories()">
+            <v-list-item v-if="isLoggedIn && isSuperUser" @click="goToCategories()">
               <v-list-item-action>
                 <v-icon>mdi-label</v-icon>
               </v-list-item-action>
@@ -79,6 +79,9 @@
         computed:{
             isLoggedIn(){
                 return this.$store.state.auth.loggedIn;
+            },
+            isSuperUser(){
+                return this.$store.state.auth.user.is_superuser;
             }
         },
         methods: {

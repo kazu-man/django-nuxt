@@ -1,11 +1,11 @@
 
 export const state = () => ({
-    // loginUser:null
+    // isSuperUser:false
 });
 
 export const mutations = {
-    // setLoginUser(state, user){
-    //     state.loginUser = user
+    // setIsSuperUser(state, flg){
+    //     state.isSuperUser = flg
     // },
 
 }
@@ -21,7 +21,6 @@ export const actions = {
         })
         .then(response => {
             console.log("LOGIN SUCCESS!!")
-            // $nuxt.$router.push('/items')
 
         })
         .catch(e => {
@@ -39,7 +38,7 @@ export const actions = {
 
 
 export const getters = {
-    // accessToken (state) {
-    //   return state.accessToken
+    // isSuperUser (state) {
+    //   return state.isSuperUser
     // }
   }
