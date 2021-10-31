@@ -101,9 +101,6 @@ const addComponent = () => import('~/components/addComponent.vue')
               fromFormat = fromFormat.replace(/M/g, targetMonth.slice(-2));
               fromFormat = fromFormat.replace(/d/g, targetDate.slice(-2));
 
-              dt.setMonth(dt.getMonth() + 1)
-              dt.setDate(0)
-              targetMonth = "00" + (dt.getMonth() + 1)
               toFormat = toFormat.replace(/yyyy/g, dt.getFullYear());
               toFormat  = toFormat.replace(/M/g, targetMonth.slice(-2));
               toFormat = toFormat.replace(/d/g, targetDate.slice(-2));
