@@ -23,9 +23,10 @@ services:
     container_name: django
     build: ./dockerfiles/django
     command:
-      python3 manage.py runserver 0.0.0.0:8000
+      uwsgi --socket :8000 --http :8001  --module api.wsgi --py-autoreload 1 -b 32768
+#      python3 manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./api:/code
+      - ./api:/api
     ports:
       - "8000:8000"
     # depends_on:
@@ -43,6 +44,17 @@ services:
       - ./client:/code
     ports:
       - "3000:3000"
+
+  nginx:
+    image: nginx:1.13
+    container_name: nginx
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+    depends_on:
+      - web
+    ports:
+      - "80:80"
 
 # volumes:
 #   mysqldata:

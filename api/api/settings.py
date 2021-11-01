@@ -26,7 +26,8 @@ SECRET_KEY = '+yq5_y0b)lsw^mkvh+@c5d2g3(n)vyfrt0*j1ck4pe-fqk+&ml'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
 
 
 # Application definition
@@ -59,7 +60,12 @@ MIDDLEWARE = [
 
  # MIDDLEWARE　の直下で追加
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
+    # 'http://localhost:3000',
+    # 'http://nuxt:3000',
+    # 'http://localhost',
+    # 'http://nuxt',
+    'http://*'
+
 )
 
 ROOT_URLCONF = 'api.urls'
