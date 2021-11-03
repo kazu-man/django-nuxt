@@ -1,3 +1,4 @@
+require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   mode: 'universal',
@@ -85,14 +86,15 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     // '@nuxtjs/auth',
-    '@nuxtjs/auth-next'
-    // '@/plugins/date_fns'
+    '@nuxtjs/auth-next',
+    // '@/plugins/date_fns',
+    '@nuxtjs/dotenv',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: "http://django:8001/api/",
-    browserBaseURL: "http://localhost/api/",
+    browserBaseURL: process.env.BROWSER_BASE_URL,
   },
   
 
